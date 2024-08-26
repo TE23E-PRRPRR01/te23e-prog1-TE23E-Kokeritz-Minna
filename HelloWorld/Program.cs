@@ -1,7 +1,7 @@
 ﻿Console.Clear();
 
 Console.BackgroundColor = ConsoleColor.DarkMagenta;
-Console.ForegroundColor = ConsoleColor.White;
+Console.ForegroundColor = ConsoleColor.Black;
 
 Console.WriteLine("Hej, Världen!");
 Console.WriteLine("Första C# prgrammet");
@@ -13,11 +13,12 @@ string namn = Console.ReadLine();
 Console.WriteLine("Hej,"+ namn);
 Console.WriteLine();
 Console.WriteLine("Dags för frågesport...yay");
-Console.Write("Vad gillar du att göra på fritiden, " + namn + "?");
+Console.Write("Vad gillar du att göra på fritiden," + namn + "? ");
 string intresse = Console.ReadLine();
 Console.WriteLine("intressant, jag gillar också att" + intresse);
 
 Console.Write("Vilken gren på OS 2024 var best? ");
 string favGrenOS = Console.ReadLine();
+
 
 
