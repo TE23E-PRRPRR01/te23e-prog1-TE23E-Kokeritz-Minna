@@ -4,8 +4,6 @@
 //Kostnad per dag är 100 kr
 
 Console.Clear();
-Console.InputEncoding = System.Text.Encoding.Unicode;
-Console.OutputEncoding = System.Text.Encoding.Unicode;
 
 Console.Write("Hur många mil har du kört? ");
 String milString = Console.ReadLine();
