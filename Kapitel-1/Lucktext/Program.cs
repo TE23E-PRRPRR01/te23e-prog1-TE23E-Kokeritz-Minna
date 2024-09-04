@@ -1,9 +1,15 @@
 ﻿string Fråga(string frågeText) {
-    while (true) {
+    string? svar;
+    do {
+        Console.Write(frågeText);
+        svar = Console.ReadLine();
+    } while (string.IsNullOrWhiteSpace(svar));
+    return svar;
+    /* while (true) {
         Console.Write(frågeText);
         string svar = Console.ReadLine();
         if (svar != "") return svar;
-    }
+    } */
 }
 
 Console.Clear();
