@@ -8,27 +8,56 @@ using System.Formats.Asn1;
 using System.Net.Security;
 
 Console.Clear();
+string answer = "";
 
-string answer;
-string getAnswer (){
+/*string getAnswer()
+{
+    string answer;
     do
     {
-    answer = Console.ReadLine();
-    answer = answer.ToLower();
+        answer = Console.ReadLine().ToLower();
     } while (string.IsNullOrWhiteSpace(answer));
     return answer;
-}
+}*/
 
-/*string getAnswer(string ans1, string ans2)
+string getAnswer2(string ans1, string ans2)
 {
-    do
+    answer = "";
+    while (answer != ans1 && answer != ans2)
     {
-    answer = Console.ReadLine();
-    answer = answer.ToLower();
-    } while (answer != ans1 || answer != ans2);
+        answer = Console.ReadLine().ToLower();
+    }
     return answer;
 }
-*/
+
+string getAnswer3(string ans1, string ans2, string ans3)
+{
+    answer = "";
+    while (answer != ans1 && answer != ans2 && answer != ans3)
+    {
+        answer = Console.ReadLine().ToLower();
+    }
+    return answer;
+}
+
+string getAnswer4(string ans1, string ans2, string ans3, string ans4)
+{
+    answer = "";
+    while (answer != ans1 && answer != ans2 && answer != ans3 && answer != ans4)
+    {
+        answer = Console.ReadLine().ToLower();
+    }
+    return answer;
+}
+string getAnswer5(string ans1, string ans2, string ans3, string ans4, string ans5)
+{
+    answer = "";
+    while (answer != ans1 && answer != ans2 && answer != ans3 && answer != ans4 && answer!=ans5)
+    {
+        answer = Console.ReadLine().ToLower();
+    }
+    return answer;
+}
 
 
 Console.WriteLine(@"
@@ -37,11 +66,10 @@ With a quick look inside you find, a wooden chest behind the right door and a fe
 You decide that you should have a closer look at the rooms, the question is which?
 (left/right)
 ");
- 
+
 //String answer = Console.ReadLine();
 //answer = answer.ToLower();
-getAnswer();
-
+getAnswer2("left", "right");
 
 // enter the left door storyline
 if (answer == "left")
@@ -62,9 +90,9 @@ if (answer == "left")
     You looked around a bit more but found nothing else. 
     What will you do, search a bit more or go to the other room? (stay/leave) ");
 
-    getAnswer();
+    getAnswer2("stay","leave");
 
-//left then directly right
+    //left then directly right
     if (answer == "leave")
     {
         Console.WriteLine(@"
@@ -78,10 +106,10 @@ if (answer == "left")
         What will you do, eat it, return to the statues or keep it in hopes to sell it? (eat/statues/sell)?
         ");
 
-        getAnswer();
+        getAnswer3("eat","statues","sell");
 
-    //left, leave go to statues 
-        if (answer=="statues")
+        //left, leave go to statues 
+        if (answer == "statues")
         {
             Console.WriteLine(@"
             You took the gilded apple and returned to the room with the 4 statues. technically nothing had changed
@@ -93,12 +121,12 @@ if (answer == "left")
             Who will you give the apple to, the Beauty Aphrodite, the Wise Athena, the Powerfull Hera or the ugly beholder? 
             (Aphrodite/Athena/Hera/Beholder/none)
             ");
-            getAnswer();
+            getAnswer5("aphrodite","athena","hera","beholder","none");
 
-        //left,leave,statues, Hera/Aphrodite/athena -->end 
+            //left,leave,statues, Hera/Aphrodite/athena -->end 
             if (answer == "aphrodite" || answer == "athena" || answer == "hera")
             {
-                if(answer == "aphrodite")
+                if (answer == "aphrodite")
                 {
                     Console.WriteLine(@"
                     The note specifcally asked for the fairest so you thought it was best to chose the godess know for her beauty.
@@ -106,9 +134,10 @@ if (answer == "left")
                     Don't be silly. 
                     ");
                     Console.ReadLine();
-                   
+
                 }
-                else if (answer=="athena"){
+                else if (answer == "athena")
+                {
                     Console.WriteLine(@"
                     While Aphrodite is the beutifull godess of love, you personally believe wisdom is more important.
                     And if this goes like the greek myth you will get both inteligence and victory in battle. Quite a sweet deal. 
@@ -116,7 +145,7 @@ if (answer == "left")
                     ");
                     Console.ReadLine();
                 }
-                else if (answer=="hera")
+                else if (answer == "hera")
                 {
                     Console.WriteLine(@"
                     You gave the apple to Hera the godess of mariage and the wife of Zeus the god king.
@@ -127,7 +156,7 @@ if (answer == "left")
                     Console.ReadLine();
                 }
 
-                 Console.WriteLine(@"
+                Console.WriteLine(@"
                     The godess statues  started creeking, moving like they were alive. Creeping closer, closer, closer, closer-
                     You stood there shellshocked. what is happening? Why? How? 
                     And before you knew it with nowhere to run you had been surounded.  
@@ -136,11 +165,11 @@ if (answer == "left")
                     In that moment staring down its main eye you remebered an old saying...  
                     ...Maybe you should have thougth about it more...
                     ");
-                    Console.ReadLine();
-                    Console.WriteLine("The end");
+                Console.ReadLine();
+                Console.WriteLine("The end");
             }
-        //left, leave, statues, beholder --> end
-            else if(answer=="beholder")
+            //left, leave, statues, beholder --> end
+            else if (answer == "beholder")
             {
                 Console.WriteLine(@"
                 You thought to give the apple to either one of the godesses or no one,
@@ -169,10 +198,10 @@ if (answer == "left")
                 Console.ReadLine();
                 Console.WriteLine("The end");
             }
-        //left leave, statues, none --> end?
+            //left leave, statues, none --> end?
             else
             {
-             Console.WriteLine(@"
+                Console.WriteLine(@"
              You decided the safest choice was to pick no one. 
              That didn't do anything though so...
              You lived the rest of your days in that dark dungeon.
@@ -187,14 +216,14 @@ if (answer == "left")
              You died in a nicely decorated dungeon, with golden apple as both ligth and food source. 
              However you never saw the outside again. 
              Ehh probably for the best at least you didn't start a war  
-             ");  
-             Console.ReadLine();
-             Console.WriteLine("The end? At least it was pretty?"); 
+             ");
+                Console.ReadLine();
+                Console.WriteLine("The end? At least it was pretty?");
             }
         }
-        
-    //left, leave, eat --> end 
-        else if (answer=="eat")
+
+        //left, leave, eat --> end 
+        else if (answer == "eat")
         {
             Console.WriteLine(@"
             You had grown hungry from all this searching and it was not helped with the golden apple. 
@@ -206,8 +235,8 @@ if (answer == "left")
             Console.ReadLine();
             Console.WriteLine("The end...");
         }
-        
-    //left, leave, sell
+
+        //left, leave, sell
         else if (answer == "sell")
         {
             Console.WriteLine(@"
@@ -221,12 +250,12 @@ if (answer == "left")
             (keep/give)
             ");
 
-            getAnswer();
+            getAnswer2("keep","give");
 
-        //left, leave, sell, give/sell
+            //left, leave, sell, give/sell
             if (answer == "give")
             {
-                 Console.WriteLine(@"
+                Console.WriteLine(@"
             You reconsidered and have decided to 'sell' the apple, but who will you sell it to?
             You thougth about the note, Maybe you should follow it, but who is the fairest?
             Or maybe you should pick the one with highest garantee of pay. 
@@ -235,41 +264,42 @@ if (answer == "left")
             (Aphrodite/Athena/Hera/Beholder)
             ");
 
-            getAnswer();
-        //left,leave,sell, give, Hera/Aphrodite/athena -->end 
-            if (answer == "aphrodite" || answer == "athena" || answer == "hera")
-            {
-                if(answer == "aphrodite")
+                getAnswer4("aphrodite","athena","hera","beholder");
+                //left,leave,sell, give, Hera/Aphrodite/athena -->end 
+                if (answer == "aphrodite" || answer == "athena" || answer == "hera")
                 {
-                    Console.WriteLine(@"
+                    if (answer == "aphrodite")
+                    {
+                        Console.WriteLine(@"
                     The note specifcally asked for the fairest so you thought it was best to chose the godess know for her beauty. 
                     And bonus if she could get you love, like the trojan myth. 
                     Maybe a bit superficiall but probably a safe bet, and what can really happen if you chose wrong, a war?
                     Don't be silly. 
                     ");
-                    Console.ReadLine();
-                   
-                }
-                else if (answer=="athena"){
-                    Console.WriteLine(@"
+                        Console.ReadLine();
+
+                    }
+                    else if (answer == "athena")
+                    {
+                        Console.WriteLine(@"
                     While Aphrodite is the beutifull godess of love, you personally believe wisdom is more important.
                     And if this goes like the greek myth you will get both inteligence and victory in battle. Quite a sweet deal. 
                     Maybe you should actually finish reading the old myth?
                     ");
-                    Console.ReadLine();
-                }
-                else if (answer=="hera")
-                {
-                    Console.WriteLine(@"
+                        Console.ReadLine();
+                    }
+                    else if (answer == "hera")
+                    {
+                        Console.WriteLine(@"
                     You sold the apple to Hera the godess of mariage and the wife of Zeus the god king.
                     Perhaps you will get some power from this whole ordeal if you give it to her. 
                     And have you heard her voice in, Epic the musical (concept album) by Jorge Rivera-Herrans, confirmed groovy. 
                     So many heroes, maybe you will be one. 
                     ");
-                    Console.ReadLine();
-                }
+                        Console.ReadLine();
+                    }
 
-                 Console.WriteLine(@"
+                    Console.WriteLine(@"
                     The godess statues  started creeking, moving like they were alive. Creeping closer, closer, closer, closer-
                     You stood there shellshocked. what is happening? Why? How? 
                     And before you knew it with nowhere to run you had been surounded.  
@@ -280,11 +310,11 @@ if (answer == "left")
                     ");
                     Console.ReadLine();
                     Console.WriteLine("The end");
-            }
-        //left, leave, sell, give, beholder --> end
-            else if(answer=="beholder")
-            {
-                Console.WriteLine(@"
+                }
+                //left, leave, sell, give, beholder --> end
+                else if (answer == "beholder")
+                {
+                    Console.WriteLine(@"
                 You thought to give the apple to one of the godesses 
                 It would probably be the safest chocies. Cause let's be honest that monster can't be called beautifull
                 But then you remebered an old saying.
@@ -297,8 +327,8 @@ if (answer == "left")
                 You took a breath... And nothing bad happend. Nothing good either. 
                 Maybe you should find another way out and sell the apple?
                 ");
-                Console.ReadLine();
-                Console.WriteLine(@"
+                    Console.ReadLine();
+                    Console.WriteLine(@"
                 Then suddenly the creatures eyes flashed, with colours one can only describe as bautifull.
                 Images of stars, clouds, landscapes, people, animals, the world, everything all at once. 
                 And then slowly it took the apple, split it, ate one part and gave the other part to you.
@@ -310,12 +340,12 @@ if (answer == "left")
                 You followed the path and there at the end was your family home. Just as beatifull as it was last time you saw it. 
                 Now you can sell the apple, and you did get a hefty sum, living rich for the rest of your days.      
                 ");
-                Console.ReadLine();
-                Console.WriteLine("The end");
-            }
+                    Console.ReadLine();
+                    Console.WriteLine("The end");
+                }
             }
 
-        //left leave sell, keep --> end
+            //left leave sell, keep --> end
             else
             {
                 Console.WriteLine(@"
@@ -333,7 +363,7 @@ if (answer == "left")
                 Console.ReadLine();
                 Console.WriteLine("The end");
             }
-            
+
         }
     }
 
@@ -343,16 +373,16 @@ if (answer == "left")
 
 
 
-//left, stay 
+    //left, stay 
     else if (answer == "stay")
     {
-     Console.WriteLine(@"
+        Console.WriteLine(@"
      You searched around a bit more but found nothing more. Maybe you need something else
      The statues seems to be waiting for some sort of object. 
      You decided that this room was a dud and hoped for better luck in the next. 
      ");
-     Console.ReadLine();
-     Console.WriteLine(@"
+        Console.ReadLine();
+        Console.WriteLine(@"
      The only thing you found in the other room was a wooden chest with a golden apple inside. 
      With the apple was a note saying 'to the fairest' 
 
@@ -360,11 +390,11 @@ if (answer == "left")
      Is it real gold? Can you sell it? What is the note? Who are the Fairest? Is it the object the statues was waiting for?
 
      What will you do, eat it, return to the statues or keep it in hopes to sell it? (eat/statues/sell)?
-     ");   
-       getAnswer();
+     ");
+        getAnswer3("eat","statues","sell");
 
-    //left, stay, statues
-        if (answer=="statues")
+        //left, stay, statues
+        if (answer == "statues")
         {
             Console.WriteLine(@"
             Your imediate thought when you entered the room was that they were waiting for the gilded Apple.
@@ -373,14 +403,14 @@ if (answer == "left")
             The question is who is that, 
             The beauty Aphrodite, the wise Athena, the powerfull Hera, the ugly Beholder. 
             (aphrodite/athena/hera/beholder/none) 
-            ");    
+            ");
 
-            getAnswer();
+            getAnswer4("aphrodite","athena","beholder","none");
 
             //left,stay,statues, Hera/Aphrodite/athena -->end 
             if (answer == "aphrodite" || answer == "athena" || answer == "hera")
             {
-                if(answer == "aphrodite")
+                if (answer == "aphrodite")
                 {
                     Console.WriteLine(@"
                     The note specifcally asked for the fairest so you thought it was best to chose the godess know for her beauty.
@@ -388,9 +418,10 @@ if (answer == "left")
                     Don't be silly. 
                     ");
                     Console.ReadLine();
-                   
+
                 }
-                else if (answer=="athena"){
+                else if (answer == "athena")
+                {
                     Console.WriteLine(@"
                     While Aphrodite is the beutifull godess of love, you personally believe wisdom is more important.
                     And if this goes like the greek myth you will get both inteligence and victory in battle. Quite a sweet deal. 
@@ -398,7 +429,7 @@ if (answer == "left")
                     ");
                     Console.ReadLine();
                 }
-                else if (answer=="hera")
+                else if (answer == "hera")
                 {
                     Console.WriteLine(@"
                     You gave the apple to Hera the godess of mariage and the wife of Zeus the god king.
@@ -409,7 +440,7 @@ if (answer == "left")
                     Console.ReadLine();
                 }
 
-                 Console.WriteLine(@"
+                Console.WriteLine(@"
                     The godess statues  started creeking, moving like they were alive. Creeping closer, closer, closer, closer-
                     You stood there shellshocked. what is happening? Why? How? 
                     And before you knew it with nowhere to run you had been surounded.  
@@ -418,11 +449,11 @@ if (answer == "left")
                     In that moment staring down its main eye you remebered an old saying...  
                     ...Maybe you should have thougth about it more...
                     ");
-                    Console.ReadLine();
-                    Console.WriteLine("The end");
+                Console.ReadLine();
+                Console.WriteLine("The end");
             }
             //left, stay, statues, beholder --> end
-            else if(answer=="beholder")
+            else if (answer == "beholder")
             {
                 Console.WriteLine(@"
                 You thought to give the apple to either one of the godesses or no one,
@@ -454,7 +485,7 @@ if (answer == "left")
             //left, stay, statues, none --> end 
             else
             {
-             Console.WriteLine(@"
+                Console.WriteLine(@"
              You decided the safest choice was to pick no one. 
              That didn't do anything though so...
              You lived the rest of your days in that dark dungeon.
@@ -469,13 +500,13 @@ if (answer == "left")
              You died in a nicely decorated dungeon, with golden apple as both ligth and food source. 
              However you never saw the outside again. 
              Ehh probably for the best at least you didn't start a war  
-             ");  
-             Console.ReadLine();
-             Console.WriteLine("The end? At least it was pretty?"); 
+             ");
+                Console.ReadLine();
+                Console.WriteLine("The end? At least it was pretty?");
             }
         }
-    // left, stay, eat --> 
-        else if (answer=="eat")
+        // left, stay, eat --> 
+        else if (answer == "eat")
         {
             Console.WriteLine(@"
             You had grown hungry from all this searching and it was not helped with the golden apple. 
@@ -488,10 +519,10 @@ if (answer == "left")
             Console.ReadLine();
             Console.WriteLine("The end");
         }
-    //left, stay,sell    
+        //left, stay,sell    
         else if (answer == "sell")
         {
-             Console.WriteLine(@"
+            Console.WriteLine(@"
             You decided to sell it, but you still have the problem of being in a dungeon, 
             with no customer other then the statues, and you have a feeling they wouldn't be able to pay rigth now
 
@@ -502,12 +533,12 @@ if (answer == "left")
             (keep/give)
             ");
 
-            getAnswer();
+            getAnswer2("keep","give");
 
             //left, stay, sell, give/sell
             if (answer == "give")
             {
-                    Console.WriteLine(@"
+                Console.WriteLine(@"
             You reconsidered and have decided to 'sell' the apple, but who will you sell it to?
             You thougth about the note, Maybe you should follow it, but who is the fairest?
             Or maybe you should pick the one with highest garantee of pay. 
@@ -515,42 +546,43 @@ if (answer == "left")
             The Beauty Aphrodite, the Wise Athena, the Powerfull Hera or the ugly beholder? 
             (Aphrodite/Athena/Hera/Beholder)
             ");
-            getAnswer();
+                getAnswer4("aphrodite","athena","hera", "beholder");
 
-            //left,stay,sell, give, Hera/Aphrodite/athena -->end 
-            if (answer == "aphrodite" || answer == "athena" || answer == "hera")
-            {
-                if(answer == "aphrodite")
+                //left,stay,sell, give, Hera/Aphrodite/athena -->end 
+                if (answer == "aphrodite" || answer == "athena" || answer == "hera")
                 {
-                    Console.WriteLine(@"
+                    if (answer == "aphrodite")
+                    {
+                        Console.WriteLine(@"
                     The note specifcally asked for the fairest so you thought it was best to chose the godess know for her beauty. 
                     And bonus if she could get you love, like the trojan myth. 
                     Maybe a bit superficiall but probably a safe bet, and what can really happen if you chose wrong, a war?
                     Don't be silly. 
                     ");
-                    Console.ReadLine();
-                   
-                }
-                else if (answer=="athena"){
-                    Console.WriteLine(@"
+                        Console.ReadLine();
+
+                    }
+                    else if (answer == "athena")
+                    {
+                        Console.WriteLine(@"
                     While Aphrodite is the beutifull godess of love, you personally believe wisdom is more important.
                     And if this goes like the greek myth you will get both inteligence and victory in battle. Quite a sweet deal. 
                     Maybe you should actually finish reading the old myth?
                     ");
-                    Console.ReadLine();
-                }
-                else if (answer=="hera")
-                {
-                    Console.WriteLine(@"
+                        Console.ReadLine();
+                    }
+                    else if (answer == "hera")
+                    {
+                        Console.WriteLine(@"
                     You sold the apple to Hera the godess of mariage and the wife of Zeus the god king.
                     Perhaps you will get some power from this whole ordeal if you give it to her. 
                     And have you heard her voice in, Epic the musical (concept album) by Jorge Rivera-Herrans, confirmed groovy. 
                     So many heroes, maybe you will be one. 
                     ");
-                    Console.ReadLine();
-                }
+                        Console.ReadLine();
+                    }
 
-                 Console.WriteLine(@"
+                    Console.WriteLine(@"
                     The godess statues  started creeking, moving like they were alive. Creeping closer, closer, closer, closer-
                     You stood there shellshocked. what is happening? Why? How? 
                     And before you knew it with nowhere to run you had been surounded.  
@@ -561,11 +593,11 @@ if (answer == "left")
                     ");
                     Console.ReadLine();
                     Console.WriteLine("The end");
-            }
-            //left, stay, sell, give, beholder --> end
-            else if(answer=="beholder")
-            {
-                Console.WriteLine(@"
+                }
+                //left, stay, sell, give, beholder --> end
+                else if (answer == "beholder")
+                {
+                    Console.WriteLine(@"
                 You thought to give the apple to one of the godesses 
                 It would probably be the safest chocies. Cause let's be honest that monster can't be called beautifull
                 But then you remebered an old saying.
@@ -578,8 +610,8 @@ if (answer == "left")
                 You took a breath... And nothing bad happend. Nothing good either. 
                 Maybe you should find another way out and sell the apple?
                 ");
-                Console.ReadLine();
-                Console.WriteLine(@"
+                    Console.ReadLine();
+                    Console.WriteLine(@"
                 Then suddenly the creatures eyes flashed, with colours one can only describe as bautifull.
                 Images of stars, clouds, landscapes, people, animals, the world, everything all at once. 
                 And then slowly it took the apple, split it, ate one part and gave the other part to you.
@@ -591,9 +623,9 @@ if (answer == "left")
                 You followed the path and there at the end was your family home. Just as beatifull as it was last time you saw it. 
                 Now you can sell the apple, and you did get a hefty sum, living rich for the rest of your days.      
                 ");
-                Console.ReadLine();
-                Console.WriteLine("The end");
-            }
+                    Console.ReadLine();
+                    Console.WriteLine("The end");
+                }
             }
 
             //left, stay sell, keep --> end
@@ -651,9 +683,9 @@ else if (answer == "right")
     (eat/sell/leave)
     ");
 
-    getAnswer();
+    getAnswer3("eat","sell","leave");
 
-//right eat --> 
+    //right eat --> 
     if (answer == "eat")
     {
         Console.WriteLine(@"
@@ -685,7 +717,7 @@ else if (answer == "right")
         Console.WriteLine("The end");
     }
 
-//right, sell -->
+    //right, sell -->
     else if (answer == "sell")
     {
         Console.WriteLine(@"
@@ -713,11 +745,11 @@ else if (answer == "right")
         What will you do sell it or keep it in hope of better customers on the surface? (give/keep)
         ");
 
-        getAnswer();
+        getAnswer2("give", "keep");
 
         if (answer == "give")
         {
-             Console.WriteLine(@"
+            Console.WriteLine(@"
             You reconsidered and have decided to 'sell' the apple, but who will you sell it to?
             You thougth about the note, Maybe you should follow it, but who is the fairest?
             Or maybe you should pick the one with highest garantee of pay. 
@@ -726,11 +758,11 @@ else if (answer == "right")
             (Aphrodite/Athena/Hera/Beholder)
             ");
 
-            getAnswer();
-        //left,sell, give, Hera/Aphrodite/athena -->end 
+            getAnswer4("aphrodite","athena","hera","beholder");
+            //left,sell, give, Hera/Aphrodite/athena -->end 
             if (answer == "aphrodite" || answer == "athena" || answer == "hera")
             {
-                if(answer == "aphrodite")
+                if (answer == "aphrodite")
                 {
                     Console.WriteLine(@"
                     The note specifcally asked for the fairest so you thought it was best to chose the godess know for her beauty. 
@@ -739,9 +771,10 @@ else if (answer == "right")
                     Don't be silly. 
                     ");
                     Console.ReadLine();
-                   
+
                 }
-                else if (answer=="athena"){
+                else if (answer == "athena")
+                {
                     Console.WriteLine(@"
                     While Aphrodite is the beutifull godess of love, you personally believe wisdom is more important.
                     And if this goes like the greek myth you will get both inteligence and victory in battle. Quite a sweet deal. 
@@ -749,7 +782,7 @@ else if (answer == "right")
                     ");
                     Console.ReadLine();
                 }
-                else if (answer=="hera")
+                else if (answer == "hera")
                 {
                     Console.WriteLine(@"
                     You sold the apple to Hera the godess of mariage and the wife of Zeus the god king.
@@ -760,7 +793,7 @@ else if (answer == "right")
                     Console.ReadLine();
                 }
 
-                 Console.WriteLine(@"
+                Console.WriteLine(@"
                     The godess statues  started creeking, moving like they were alive. Creeping closer, closer, closer, closer-
                     You stood there shellshocked. what is happening? Why? How? 
                     And before you knew it with nowhere to run you had been surounded.  
@@ -769,11 +802,11 @@ else if (answer == "right")
                     In that moment staring down its main eye you remebered an old saying...  
                     ...Maybe you should have thougth about it more...
                     ");
-                    Console.ReadLine();
-                    Console.WriteLine("The end");
+                Console.ReadLine();
+                Console.WriteLine("The end");
             }
-        //rigth, sell, give, beholder --> end
-            else if(answer=="beholder")
+            //rigth, sell, give, beholder --> end
+            else if (answer == "beholder")
             {
                 Console.WriteLine(@"
                 You thought to give the apple to one of the godesses 
@@ -805,8 +838,8 @@ else if (answer == "right")
                 Console.WriteLine("The end");
             }
         }
-     //rigth, sell,keep --> end       
-        else if (answer =="keep")
+        //rigth, sell,keep --> end       
+        else if (answer == "keep")
         {
             Console.WriteLine(@"
                 You decided you could get better customers when you escaped. 
@@ -819,7 +852,7 @@ else if (answer == "right")
                 You stand with your decision.
                 Nothing can waver it. 
                 You would have gotten a good price for it on the surface no matter what the statues may think.
-                ");    
+                ");
             Console.ReadLine();
             Console.WriteLine("The end");
         }
@@ -832,7 +865,7 @@ else if (answer == "right")
 
 
 
-//rigth, leave 
+    //rigth, leave 
     else if (answer == "leave")
     {
         Console.WriteLine(@"
@@ -854,9 +887,9 @@ else if (answer == "right")
         You serached a bit more but found nothing else. You still have the golden apple with you.
         What will you do, give one of them the apple, sell the apple, eat the apple
         (give/sell/eat)");
-        
-        getAnswer();
-    //rigth, leave, give 
+
+        getAnswer3("give","sell","eat");
+        //rigth, leave, give 
         if (answer == "give")
         {
             Console.WriteLine(@"
@@ -868,12 +901,12 @@ else if (answer == "right")
             (aphrodite/athena/hera/beholder/none) 
             ");
 
-            getAnswer();
+            getAnswer5("aphrodite","athena","hera","beholder","none");
 
             //rigth, leave, give, gods --> 
             if (answer == "aphrodite" || answer == "athena" || answer == "hera")
             {
-                if(answer == "aphrodite")
+                if (answer == "aphrodite")
                 {
                     Console.WriteLine(@"
                     The note specifcally asked for the fairest so you thought it was best to chose the godess know for her beauty.
@@ -881,9 +914,10 @@ else if (answer == "right")
                     Don't be silly. 
                     ");
                     Console.ReadLine();
-                   
+
                 }
-                else if (answer=="athena"){
+                else if (answer == "athena")
+                {
                     Console.WriteLine(@"
                     While Aphrodite is the beutifull godess of love, you personally believe wisdom is more important.
                     And if this goes like the greek myth you will get both inteligence and victory in battle. Quite a sweet deal. 
@@ -891,7 +925,7 @@ else if (answer == "right")
                     ");
                     Console.ReadLine();
                 }
-                else if (answer=="hera")
+                else if (answer == "hera")
                 {
                     Console.WriteLine(@"
                     You gave the apple to Hera the godess of mariage and the wife of Zeus the god king.
@@ -902,7 +936,7 @@ else if (answer == "right")
                     Console.ReadLine();
                 }
 
-                 Console.WriteLine(@"
+                Console.WriteLine(@"
                     The godess statues  started creeking, moving like they were alive. Creeping closer, closer, closer, closer-
                     You stood there shellshocked. what is happening? Why? How? 
                     And before you knew it with nowhere to run you had been surounded.  
@@ -911,11 +945,11 @@ else if (answer == "right")
                     In that moment staring down its main eye you remebered an old saying...  
                     ...Maybe you should have thougth about it more...
                     ");
-                    Console.ReadLine();
-                    Console.WriteLine("The end");
+                Console.ReadLine();
+                Console.WriteLine("The end");
             }
-        //right, leave, give, beholder --> end
-            else if(answer=="beholder")
+            //right, leave, give, beholder --> end
+            else if (answer == "beholder")
             {
                 Console.WriteLine(@"
                 You thought to give the apple to either one of the godesses or no one,
@@ -944,10 +978,10 @@ else if (answer == "right")
                 Console.ReadLine();
                 Console.WriteLine("The end");
             }
-        //rigth leave, give, none --> end?
+            //rigth leave, give, none --> end?
             else
             {
-             Console.WriteLine(@"
+                Console.WriteLine(@"
              You decided the safest choice was to pick no one. 
              That didn't do anything though so...
              You lived the rest of your days in that dark dungeon.
@@ -962,13 +996,13 @@ else if (answer == "right")
              You died in a nicely decorated dungeon, with golden apple as both ligth and food source. 
              However you never saw the outside again. 
              Ehh probably for the best at least you didn't start a war  
-             ");  
-             Console.ReadLine();
-             Console.WriteLine("The end? At least it was pretty?"); 
+             ");
+                Console.ReadLine();
+                Console.WriteLine("The end? At least it was pretty?");
             }
         }
-    //rigth, leave, sell
-        else if (answer =="sell")
+        //rigth, leave, sell
+        else if (answer == "sell")
         {
             Console.WriteLine(@"
             You decided to sell it when you manage to submerge on the surface again.
@@ -989,7 +1023,7 @@ else if (answer == "right")
             Console.ReadLine();
             Console.WriteLine("The end");
         }
-    //rigth, leave, eat --> end 
+        //rigth, leave, eat --> end 
         else if (answer == "eat")
         {
             Console.WriteLine(@"
