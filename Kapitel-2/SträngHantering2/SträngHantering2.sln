@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SträngHantering2", "SträngHantering2.csproj", "{06BF87A6-FE58-4C2F-A3CE-1CDDD3D924C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06BF87A6-FE58-4C2F-A3CE-1CDDD3D924C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06BF87A6-FE58-4C2F-A3CE-1CDDD3D924C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06BF87A6-FE58-4C2F-A3CE-1CDDD3D924C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06BF87A6-FE58-4C2F-A3CE-1CDDD3D924C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A87D8559-6E48-497E-A0BD-D932381186D0}
+	EndGlobalSection
+EndGlobal

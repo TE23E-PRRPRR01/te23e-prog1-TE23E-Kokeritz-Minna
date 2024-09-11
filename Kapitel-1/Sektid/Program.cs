@@ -2,6 +2,7 @@
 void WriteInColor(int  tid, ConsoleColor color) {
     Console.ForegroundColor = color;
     Console.Write(tid);
+    Console.ForegroundColor = ConsoleColor.White;
 }
 
 Console.Clear();
@@ -19,15 +20,12 @@ int minutRemain = minut%60;
 Console.Write($"{sek} sekunder är ");
 
 WriteInColor(timme,ConsoleColor.Blue );
-Console.ForegroundColor = ConsoleColor.White;
 Console.Write(" timmar ");
 
 WriteInColor(minutRemain,ConsoleColor.Red);
-Console.ForegroundColor = ConsoleColor.White;
 Console.Write(" minuter och ");
 
 WriteInColor(sekRemain,ConsoleColor.Green);
-Console.ForegroundColor = ConsoleColor.White;
 Console.Write(" sekunder");
 
 //Console.WriteLine($"{sek} sekunder är {timme} timmar {minutRemain} minuter och {sekRemain} sekunder");
