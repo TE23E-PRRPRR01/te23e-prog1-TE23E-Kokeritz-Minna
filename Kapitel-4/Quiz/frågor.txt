@@ -1,0 +1,7 @@
+Vem gjorde C-3P0?,Anakin Skywalker,En nabooian servant,Cliegg Lars,a
+Ved hette Boba Fetts farkost?,P-5000 ,Marauder,Slave 1,c
+Ved heter Darth Tyranus egentligen?,Tera Sinube,Yan dooku,Sheev Palpatine,b
+Vem är Hondo Ohnaka?,En Jedi,En Pirat,En senator,b
+Vilken klon lämnade armen?,Cut,Ponds,Thire,a
+Vilket ckompani var Rex comandör i?,332nd,501st,212th,a
+Hur många medlemmar har jedirådet?,10,6,12
