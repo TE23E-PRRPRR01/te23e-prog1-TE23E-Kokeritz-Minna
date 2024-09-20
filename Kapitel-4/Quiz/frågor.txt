@@ -4,4 +4,5 @@ Ved heter Darth Tyranus egentligen?,Tera Sinube,Yan dooku,Sheev Palpatine,b
 Vem är Hondo Ohnaka?,En Jedi,En Pirat,En senator,b
 Vilken klon lämnade armen?,Cut,Ponds,Thire,a
 Vilket ckompani var Rex comandör i?,332nd,501st,212th,a
-Hur många medlemmar har jedirådet?,10,6,12
+Hur många medlemmar har jedirådet?,10,6,12,c
+Which planet is Obi-wan Kenobi from?,Alderann,Stevjonni,Corocant,b

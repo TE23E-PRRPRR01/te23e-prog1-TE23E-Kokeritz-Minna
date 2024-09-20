@@ -1,11 +1,14 @@
-﻿// vill lägga till att frågorna är i sin egna funktion
-// inte hårdkoda frågorna + classerna. 
-
+﻿//admin från alla tillfällen + while loop + Meny
+//ändra i frågorna
+// ta bort fråga 
 
 using System.ComponentModel;
+using System.Runtime.Intrinsics.Arm;
+using System.Runtime.Serialization;
 using System.Xml.Schema;
 
-
+Console.InputEncoding = System.Text.Encoding.Unicode;
+Console.OutputEncoding = System.Text.Encoding.Unicode;
 Console.Clear();
 
 Console.WriteLine(@"
@@ -15,36 +18,12 @@ Console.ReadLine();
 
 Console.WriteLine("Vad är ditt namn? ");
 string namn = Console.ReadLine();
+if (namn == "admin") adminNyFråga();
 
 var foo = new Fråga();
 
 int poäng;
 int total;
-
-int Rätta(char facit)
-{
-
-    Console.Write("Ditt svar: ");
-    total++; // tar upp antal totalpoäng med 1
-
-    //ser till att svaret är a, b eller c
-    char svar = 'e'; // en random bokstav som inte är abc 
-
-    do svar = char.Parse(Console.ReadLine().ToLower()); //läser in och registrerar svaret 
-    while (svar != 'a' && svar != 'b' && svar != 'c'); // tills det är anitngen abc 
-
-    if (svar == facit)
-    {
-        Console.WriteLine("Rätt svar");
-        poäng++;
-    }
-    else
-    {
-        Console.WriteLine("Fel svar");
-        poäng--;
-    }
-    return poäng;
-}
 
 // ger specifika responses beroende på hur många poäng du fick. Kan kägga till flera med flera else if
 void respons(int slutpoäng)
@@ -54,6 +33,29 @@ void respons(int slutpoäng)
     else if (slutpoäng > total / 2) Console.WriteLine("Inte dåligt, inte dåligt, faktiskt ganska bra");
     else if (slutpoäng == 0) Console.WriteLine("Du är sämst.");
     else if (slutpoäng < 0) Console.WriteLine("Du lyckades få minuspoäng hur är det äns möjligt???");
+}
+
+void adminNyFråga()
+{
+    Console.Write(@"Skriv frågan i detta format: {frågetext?},{altA},{altb},{altc},{facit(a/b/c)}
+    NyFråga: ");
+
+    while (true)
+    {
+        string nyFråga = Console.ReadLine();
+
+        string[] delar = nyFråga.Split(',');
+        if (delar.Length == 5 && delar[4] == "a" || delar[4] == "b" || delar[4] == "c" )
+        {
+            File.AppendAllText("frågor.txt", nyFråga + Environment.NewLine);
+            Console.WriteLine("Frågan har lagts till");
+            Console.WriteLine();
+            break;
+        }
+        else Console.WriteLine("Formatet är fel, var vänlig försök igen");
+
+    }
+
 }
 
 // all kod som hanterar filavlästning har blivit hjälpt vid skrivningen av pappa
@@ -91,12 +93,14 @@ while (true)
         //ser till att svaret är a, b eller c
         char svar = 'e'; // en random bokstav som inte är abc 
         Console.Write("Ditt svar: ");
-        do svar = char.Parse(Console.ReadLine().ToLower()); //läser in och registrerar svaret 
-        while (svar != 'a' && svar != 'b' && svar != 'c'); // tills det är anitngen abc 
+
+        do svar = char.Parse(Console.ReadLine().Substring(0, 1).ToLower()); //läser in och registrerar svaret om det är 
+        while (svar != 'a' && svar != 'b' && svar != 'c'); // tills det är anitngen abc  // fungerar halft kan hantera mer än en karaaktär men inskrvivningen blir funky. 
 
         if (dennaFråga.Rätta(svar) == true) poäng++;
         else poäng--;
         Console.WriteLine();
+
         total++;
     }
     //slut stadiet får respons beroende på procent av totalpoängen. 
@@ -107,8 +111,6 @@ while (true)
     Console.WriteLine($"{namn} vill du spela igen? (ja/nej)");
     if (Console.ReadLine().ToLower() == "nej") break;
 }
-
-
 
 /*    
     Console.WriteLine(@"
@@ -162,4 +164,41 @@ a) 10
 b) 6
 c) 12");
   Rätta('c');
+*/
+
+/* int Rätta(char facit)
+{
+
+    Console.Write("Ditt svar: ");
+    total++; // tar upp antal totalpoäng med 1
+
+    //ser till att svaret är a, b eller c
+    char svar;
+    do svar = char.Parse(Console.ReadLine().ToLower()); //läser in och registrerar svaret 
+    while (svar != 'a' && svar != 'b' && svar != 'c' ); // tills det är anitngen abc 
+
+    if (svar == facit)
+    {
+        Console.WriteLine("Rätt svar");
+        poäng++;
+    }
+    else
+    {
+        Console.WriteLine("Fel svar");
+        poäng--;
+    }
+    return poäng;
+}
+ */
+
+
+/*  do svar = char.Parse(Console.ReadLine().ToLower()); //läser in och registrerar svaret 
+        while (svar != 'a' && svar != 'b' && svar != 'c'); // tills det är anitngen abc */  // fungerar men kan inte hantera med en än charaktär
+
+
+/*  
+do
+ {
+     if (Console.ReadLine().Length <= 1) svar = char.Parse(Console.ReadLine().ToLower()); //läser in och registrerar svaret om det är 
+ } while (svar != 'a' && svar != 'b' && svar != 'c'); // tills det är anitngen abc  // fungerar halft kan hantera mer än en karaaktär men inskrvivningen blir funky. 
 */
