@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Xml.Schema;
 
 //Alla koder som hanterar klasser har jag fått stort hjälp från pappa. 
@@ -21,13 +22,20 @@ class Fråga
     {
         if (svar == facit)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Rätt svar");
+            Console.ForegroundColor = ConsoleColor.White;
             return true;
         }
         else
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Fel svar");
+            Console.ForegroundColor = ConsoleColor.White;
             return false;
         }
     }
+
+
+    
 }

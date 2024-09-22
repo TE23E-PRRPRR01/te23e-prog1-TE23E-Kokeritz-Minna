@@ -13,12 +13,16 @@ Console.Clear();
 
 Console.WriteLine(@"
 Det här är ett quiz om Star Wars (frågor tagna från random quiz på nätet)
-Du får ett poäng för rätt svar och ett minus poäng för fel svar");
+Du får ett poäng för rätt svar och ett minus poäng för fel svar,
+Om du har skrivit mer en än bokstav när du svarar kommer programmet räkna förstabokstaven som svaret");
 Console.ReadLine();
 
 Console.WriteLine("Vad är ditt namn? ");
 string namn = Console.ReadLine();
-if (namn == "admin") adminNyFråga();
+//if (namn == "admin") adminNyFråga();
+if (namn == "admin") adminÄndraFråga();
+
+Console.WriteLine();
 
 var foo = new Fråga();
 
@@ -45,7 +49,7 @@ void adminNyFråga()
         string nyFråga = Console.ReadLine();
 
         string[] delar = nyFråga.Split(',');
-        if (delar.Length == 5 && delar[4] == "a" || delar[4] == "b" || delar[4] == "c" )
+        if (delar.Length == 5 && delar[4] == "a" || delar[4] == "b" || delar[4] == "c")
         {
             File.AppendAllText("frågor.txt", nyFråga + Environment.NewLine);
             Console.WriteLine("Frågan har lagts till");
@@ -58,7 +62,22 @@ void adminNyFråga()
 
 }
 
-// all kod som hanterar filavlästning har blivit hjälpt vid skrivningen av pappa
+void adminÄndraFråga()
+{
+    var frågor = new List<string>(File.ReadLines("frågor.txt"));
+    Console.WriteLine("Välj en rad att ändra på. (ange radnummret)");
+    Console.WriteLine();
+
+    for(int i = 0; i< frågor.Count; i++) {
+        Console.WriteLine($"{i+1}: {frågor[i]}");
+    }
+
+    int valdRad = int.Parse(Console.ReadLine());
+    if(valdRad > 0 && valdRad <frågor.Count +1) Console.WriteLine("hej");
+    else Console.WriteLine("nej");
+}
+
+// nästan all kod som hanterar filavlästning har blivit hjälpt vid skrivningen av pappa 
 //Läser in frågan från en fil
 var Frågor = new List<Fråga>();
 foreach (var frågeRad in File.ReadLines("frågor.txt"))
@@ -79,6 +98,7 @@ foreach (var frågeRad in File.ReadLines("frågor.txt"))
     Frågor.Add(lästFråga); // lägger in den nya frågan i fråga listan. 
 }
 
+
 while (true)
 {
     //resetar räknarna
@@ -94,7 +114,8 @@ while (true)
         char svar = 'e'; // en random bokstav som inte är abc 
         Console.Write("Ditt svar: ");
 
-        do svar = char.Parse(Console.ReadLine().Substring(0, 1).ToLower()); //läser in och registrerar svaret om det är 
+        //while(svar != 'a' && svar != 'b' && svar != 'c')svar = char.Parse(Console.ReadLine().Substring(0, 1).ToLower()); // fungerar gillar dock andra bättre.
+        do svar = char.Parse(Console.ReadLine().Substring(0, 1).ToLower()); //läser in och registrerar svaret samt klipper bort alla bokstäver förutom dem första 
         while (svar != 'a' && svar != 'b' && svar != 'c'); // tills det är anitngen abc  // fungerar halft kan hantera mer än en karaaktär men inskrvivningen blir funky. 
 
         if (dennaFråga.Rätta(svar) == true) poäng++;
@@ -111,94 +132,3 @@ while (true)
     Console.WriteLine($"{namn} vill du spela igen? (ja/nej)");
     if (Console.ReadLine().ToLower() == "nej") break;
 }
-
-/*    
-    Console.WriteLine(@"
-Vem gjorde C-3P0? 
-a) Anakin Skywalker
-b) En nabooian servant
-c) Cliegg Lars");
-    Rätta('a');
-
-    Console.WriteLine(@"
-Ved hette Boba Fetts farkost? 
-a) P-5000
-b) Marauder
-c) Slave 1");
-    Rätta('c');
-
-
-    Console.WriteLine(@"
-Ved heter Darth Tyranus egentligen? 
-a) Tera Sinube
-b) Yan dooku
-c) Sheev Palpatine");
-    Rätta('b');
- */
-
-
-/*  Console.WriteLine(@"
-Vem är Hondo Ohnaka?
-a) En Jedi
-b) En Pirat
-c) En senator");
- Rätta('b');
-
- Console.WriteLine(@"
-Vilken klon lämnade armen? 
-a) Cut
-b) Ponds
-c) Thire");
- Rätta('a'); */
-
-/*   Console.WriteLine(@"
-Vilket ckompani var Rex comandör i? 
-a) 332nd
-b) 501st
-c) 212th");
-  Rätta('a');
-
-  Console.WriteLine(@"
-Hur många medlemmar har jedirådet? 
-a) 10
-b) 6
-c) 12");
-  Rätta('c');
-*/
-
-/* int Rätta(char facit)
-{
-
-    Console.Write("Ditt svar: ");
-    total++; // tar upp antal totalpoäng med 1
-
-    //ser till att svaret är a, b eller c
-    char svar;
-    do svar = char.Parse(Console.ReadLine().ToLower()); //läser in och registrerar svaret 
-    while (svar != 'a' && svar != 'b' && svar != 'c' ); // tills det är anitngen abc 
-
-    if (svar == facit)
-    {
-        Console.WriteLine("Rätt svar");
-        poäng++;
-    }
-    else
-    {
-        Console.WriteLine("Fel svar");
-        poäng--;
-    }
-    return poäng;
-}
- */
-
-
-/*  do svar = char.Parse(Console.ReadLine().ToLower()); //läser in och registrerar svaret 
-        while (svar != 'a' && svar != 'b' && svar != 'c'); // tills det är anitngen abc */  // fungerar men kan inte hantera med en än charaktär
-
-
-/*  
-do
- {
-     if (Console.ReadLine().Length <= 1) svar = char.Parse(Console.ReadLine().ToLower()); //läser in och registrerar svaret om det är 
- } while (svar != 'a' && svar != 'b' && svar != 'c'); // tills det är anitngen abc  // fungerar halft kan hantera mer än en karaaktär men inskrvivningen blir funky. 
-*/
