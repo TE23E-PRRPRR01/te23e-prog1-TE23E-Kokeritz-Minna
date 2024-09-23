@@ -19,8 +19,55 @@ Console.ReadLine();
 
 Console.WriteLine("Vad är ditt namn? ");
 string namn = Console.ReadLine();
-//if (namn == "admin") adminNyFråga();
-if (namn == "admin") adminÄndraFråga();
+int val = 0;
+
+
+if (namn == "admin")
+{
+    while (val != 5)
+    {
+        Console.WriteLine("""
+        Välkommen tillbaka admin; vad vill du göra?
+        1) Läs upp frågorna  
+        2) Lägg till en fråga
+        3) Ändra en fråga 
+        4) Ta bort en fråga
+        5) Avsluta admin mode
+        """);
+        int.TryParse(Console.ReadLine(), out val);
+        switch (val)
+        {
+            case 1:
+                LäsInFråga();
+                break;
+
+            case 2:
+                AdminNyFråga();
+                break;
+
+            case 3:
+                AdminÄndraFråga();
+                break;
+
+            case 4:
+                Console.WriteLine("denna kod är inte skriven ignorera den i all framtid ");
+                break;
+
+            case 5:
+                Console.WriteLine("Din tid i admin mode är slut, vad är ditt namn Admin?");
+                namn = Console.ReadLine();
+                break;
+
+            default:
+                Console.WriteLine("ogilitigt svar");
+                break;
+        }
+
+    }
+}
+//if (namn == "admin") LäsInFråga();
+//if (namn == "admin") AdminNyFråga();
+//if (namn == "admin") AdminÄndraFråga();
 
 Console.WriteLine();
 
@@ -33,13 +80,23 @@ int total;
 void respons(int slutpoäng)
 {
     if (slutpoäng == total) Console.WriteLine("Alla rätt grattis!");
-    else if (slutpoäng <= total / 2) Console.WriteLine(poäng + " är inte det värsta, men du kan göra bättre");
-    else if (slutpoäng > total / 2) Console.WriteLine("Inte dåligt, inte dåligt, faktiskt ganska bra");
     else if (slutpoäng == 0) Console.WriteLine("Du är sämst.");
     else if (slutpoäng < 0) Console.WriteLine("Du lyckades få minuspoäng hur är det äns möjligt???");
+    else if (slutpoäng <= total / 2) Console.WriteLine(poäng + " är inte det värsta, men du kan göra bättre");
+    else if (slutpoäng > total / 2) Console.WriteLine("Inte dåligt, inte dåligt, faktiskt ganska bra");
 }
 
-void adminNyFråga()
+void LäsInFråga()
+{
+    var frågor = new List<string>(File.ReadLines("frågor.txt"));
+    for (int i = 0; i < frågor.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}: {frågor[i]}");
+    }
+    Console.ReadLine();
+}
+
+void AdminNyFråga()
 {
     Console.Write(@"Skriv frågan i detta format: {frågetext?},{altA},{altb},{altc},{facit(a/b/c)}
     NyFråga: ");
@@ -49,7 +106,7 @@ void adminNyFråga()
         string nyFråga = Console.ReadLine();
 
         string[] delar = nyFråga.Split(',');
-        if (delar.Length == 5 && delar[4] == "a" || delar[4] == "b" || delar[4] == "c")
+        if (delar.Length == 5 && (delar[4] == "a" || delar[4] == "b" || delar[4] == "c"))
         {
             File.AppendAllText("frågor.txt", nyFråga + Environment.NewLine);
             Console.WriteLine("Frågan har lagts till");
@@ -62,24 +119,46 @@ void adminNyFråga()
 
 }
 
-void adminÄndraFråga()
+void AdminÄndraFråga()
 {
     var frågor = new List<string>(File.ReadLines("frågor.txt"));
     Console.WriteLine("Välj en rad att ändra på. (ange radnummret)");
     Console.WriteLine();
 
-    for(int i = 0; i< frågor.Count; i++) {
-        Console.WriteLine($"{i+1}: {frågor[i]}");
+    for (int i = 0; i < frågor.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}: {frågor[i]}");
     }
 
+
     int valdRad = int.Parse(Console.ReadLine());
-    if(valdRad > 0 && valdRad <frågor.Count +1) Console.WriteLine("hej");
-    else Console.WriteLine("nej");
+    if (valdRad > 0 && valdRad < frågor.Count + 1)
+    {
+        while (true)
+        {
+
+            Console.WriteLine("skriv in den nya frågan");
+            string ändradFråga = Console.ReadLine();
+            frågor[valdRad - 1] = ändradFråga;
+
+            string[] delar = ändradFråga.Split(',');
+            if (delar.Length == 5 && (delar[4] == "a" || delar[4] == "b" || delar[4] == "c"))
+            {
+                File.WriteAllLines("frågor.txt", frågor);
+                Console.WriteLine("Frågan har ändrats");
+                Console.WriteLine();
+                break;
+            }
+            else Console.WriteLine("Formatet är fel, var vänlig försök igen");
+        }
+    }
+    else Console.WriteLine("Ogiltigt svar");
 }
 
-// nästan all kod som hanterar filavlästning har blivit hjälpt vid skrivningen av pappa 
+// nästan all kod som hanterar filavlästning har blivit hjälpt vid skrivningen av min pappa och chat gpt
+
 //Läser in frågan från en fil
-var Frågor = new List<Fråga>();
+var frågor = new List<Fråga>();
 foreach (var frågeRad in File.ReadLines("frågor.txt"))
 {
     //delar upp frågan i delar 
@@ -95,7 +174,7 @@ foreach (var frågeRad in File.ReadLines("frågor.txt"))
         altC = frågeDelar[3],
         facit = char.Parse(frågeDelar[4])
     };
-    Frågor.Add(lästFråga); // lägger in den nya frågan i fråga listan. 
+    frågor.Add(lästFråga); // lägger in den nya frågan i fråga listan. 
 }
 
 
@@ -106,7 +185,7 @@ while (true)
     total = 0;
 
     //skriver och rättar frågan. 
-    foreach (var dennaFråga in Frågor)
+    foreach (var dennaFråga in frågor)
     {
         dennaFråga.SkrivFråga();
 

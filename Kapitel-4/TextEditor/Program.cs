@@ -2,9 +2,11 @@
 Skriv till fil
 Läs från fil
 Avsluta programmet*/
+
 Console.InputEncoding = System.Text.Encoding.Unicode;
 Console.OutputEncoding = System.Text.Encoding.Unicode;
 Console.Clear();
+
 int val = 0;
 
 Console.WriteLine("""
@@ -32,6 +34,7 @@ while (val != 3)
             Console.Write("skriv in en text: ");
             string Nytext = Console.ReadLine();
             File.AppendAllText("textfil.txt",Nytext + Environment.NewLine);
+            //                                          ny rad ^
             Console.WriteLine("Texten har sprats i filen textfil.txt");
             Console.WriteLine();
             break;

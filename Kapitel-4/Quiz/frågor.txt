@@ -6,3 +6,9 @@ Vilken klon lämnade armen?,Cut,Ponds,Thire,a
 Vilket ckompani var Rex comandör i?,332nd,501st,212th,a
 Hur många medlemmar har jedirådet?,10,6,12,c
 Which planet is Obi-wan Kenobi from?,Alderann,Stevjonni,Corocant,b
+Vilken planet bröjade the clone wars på?,Alderann,Geonosis,Serenno,b
+Hälsningar idag?,tjabba,tjena,hallo,c
+vem är john constanine?,inte en starwars karaktär thats for certain, vem?, hur?,a
+how much wood would a wood chuck chuck if a wood chuck could chuck wood?,huh?,15,an unditerminatable amout,c
+vem är jesus, livet, döden,ingen ich bin nicht religös,c
+Vad är en glas dörr?,ett object,om livet vills, en tranparanat öppning till ett fält,c
