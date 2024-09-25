@@ -26,7 +26,6 @@ while (true)
         case "dator":
             int dataTal = Random.Shared.Next(1, 11);
             dataSumma = dataSumma + dataTal;
-
             goto case "du";
 
         case "du":
