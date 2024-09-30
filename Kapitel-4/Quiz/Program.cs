@@ -1,6 +1,15 @@
-﻿//admin från alla tillfällen + while loop + Meny
-//ändra i frågorna
-// ta bort fråga 
+﻿/*
+    @todo:
+        Quiz Kategorier
+        grafiskt? 
+            FlerSpelar Läge
+        Svårhetsgrader
+        Ranking istället för "respons"  
+
+    @todo done:
+        highScore --> kanske kan spara? 
+
+*/
 
 using System.ComponentModel;
 using System.Runtime.Intrinsics.Arm;
@@ -16,6 +25,9 @@ Det här är ett quiz om Star Wars (frågor tagna från random quiz på nätet)
 Du får ett poäng för rätt svar och ett minus poäng för fel svar,
 Om du har skrivit mer en än bokstav när du svarar kommer programmet räkna förstabokstaven som svaret");
 Console.ReadLine();
+
+Console.WriteLine("Hur många spelar?");
+int spelare = int.Parse(Console.ReadLine());
 
 Console.WriteLine("Vad är ditt namn? ");
 string namn = Console.ReadLine();
@@ -50,7 +62,7 @@ if (namn == "admin")
                 break;
 
             case 4:
-                Console.WriteLine("denna kod är inte skriven ignorera den i all framtid ");
+                AdminRaderaFråga();
                 break;
 
             case 5:
@@ -65,16 +77,12 @@ if (namn == "admin")
 
     }
 }
-//if (namn == "admin") LäsInFråga();
-//if (namn == "admin") AdminNyFråga();
-//if (namn == "admin") AdminÄndraFråga();
 
 Console.WriteLine();
 
-var foo = new Fråga();
-
 int poäng;
 int total;
+int highScore = -100;
 
 // ger specifika responses beroende på hur många poäng du fick. Kan kägga till flera med flera else if
 void respons(int slutpoäng)
@@ -130,8 +138,8 @@ void AdminÄndraFråga()
         Console.WriteLine($"{i + 1}: {frågor[i]}");
     }
 
-
-    int valdRad = int.Parse(Console.ReadLine());
+    int valdRad;
+    int.TryParse(Console.ReadLine(), out valdRad);
     if (valdRad > 0 && valdRad < frågor.Count + 1)
     {
         while (true)
@@ -151,6 +159,29 @@ void AdminÄndraFråga()
             }
             else Console.WriteLine("Formatet är fel, var vänlig försök igen");
         }
+    }
+    else Console.WriteLine("Ogiltigt svar");
+}
+
+void AdminRaderaFråga()
+{
+    var frågor = new List<string>(File.ReadLines("frågor.txt"));
+    Console.WriteLine("Välj en rad att ändra på. (ange radnummret)");
+    Console.WriteLine();
+
+    for (int i = 0; i < frågor.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}: {frågor[i]}");
+    }
+
+    int.TryParse(Console.ReadLine(), out int valdRad);
+    if (valdRad > 0 && valdRad < frågor.Count + 1)
+    {
+        frågor.RemoveAt(valdRad - 1);
+
+        File.WriteAllLines("frågor.txt", frågor);
+
+        Console.WriteLine("Frågan har tagits bort");
     }
     else Console.WriteLine("Ogiltigt svar");
 }
@@ -193,7 +224,22 @@ while (true)
         char svar = 'e'; // en random bokstav som inte är abc 
         Console.Write("Ditt svar: ");
 
+
+        ///while(svar != 'a' && svar != 'b' && svar != 'c') char.TryParse(Console.ReadLine().Substring(0, 1).ToLower(), out svar);        
         //while(svar != 'a' && svar != 'b' && svar != 'c')svar = char.Parse(Console.ReadLine().Substring(0, 1).ToLower()); // fungerar gillar dock andra bättre.
+
+        /* do
+         {
+             if (string.IsNullOrWhiteSpace(Console.ReadLine())) svar = 'e';
+             else svar = char.Parse(Console.ReadLine().Substring(0, 1).ToLower()); //läser in och registrerar svaret samt klipper bort alla bokstäver förutom dem första 
+         }
+         while (svar != 'a' && svar != 'b' && svar != 'c'); // tills det är anitngen abc  // fungerar halft kan hantera mer än en karaaktär men inskrvivningen blir funky. 
+         while (svar != 'a' && svar != 'b' && svar != 'c'); // tills det är anitngen abc  // fungerar halft kan hantera mer än en karaaktär men inskrvivningen blir funky. 
+         {
+             if (string.IsNullOrWhiteSpace(Console.ReadLine())) svar = 'e';
+             else svar = char.Parse(Console.ReadLine().Substring(0, 1).ToLower()); //läser in och registrerar svaret samt klipper bort alla bokstäver förutom dem första 
+         }
+        */
         do svar = char.Parse(Console.ReadLine().Substring(0, 1).ToLower()); //läser in och registrerar svaret samt klipper bort alla bokstäver förutom dem första 
         while (svar != 'a' && svar != 'b' && svar != 'c'); // tills det är anitngen abc  // fungerar halft kan hantera mer än en karaaktär men inskrvivningen blir funky. 
 
@@ -203,10 +249,18 @@ while (true)
 
         total++;
     }
+
+
     //slut stadiet får respons beroende på procent av totalpoängen. 
     Console.WriteLine();
     Console.WriteLine($"Du fick {poäng} poäng av {total} möjliga ");
     respons(poäng);
+    if (highScore < poäng )
+    {
+        Console.WriteLine("Du har fått ett nytt highscore!!!   yay");
+        highScore = poäng;
+    }
+    Console.WriteLine($"Din highscore är {highScore}"); 
 
     Console.WriteLine($"{namn} vill du spela igen? (ja/nej)");
     if (Console.ReadLine().ToLower() == "nej") break;
