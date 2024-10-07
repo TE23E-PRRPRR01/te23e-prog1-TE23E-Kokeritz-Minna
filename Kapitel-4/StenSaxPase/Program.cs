@@ -41,14 +41,20 @@ while (true)
     void vinst()
     {
         Console.WriteLine($"Datorn valde: {dataVal}");
+        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine($"{Val} vinner över {dataVal}, Grattis");
+        Console.ForegroundColor = ConsoleColor.White;
+
         Console.WriteLine("");
         poäng++;
     }
     void förlust()
     {
         Console.WriteLine($"Datorn valde: {dataVal}");
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine($"{Val} förlora för {dataVal}, better luck next time");
+        Console.ForegroundColor = ConsoleColor.White;
+
         Console.WriteLine("");
 
         dataPoäng++;
@@ -56,7 +62,9 @@ while (true)
     void neutralt()
     {
         Console.WriteLine($"Datorn valde: {dataVal}");
+        Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("Det blev lika");
+        Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine("");
     }
 
@@ -111,9 +119,7 @@ while (true)
 
     }
 
-    Console.ReadLine();
     Console.WriteLine($"du har just nu {poäng} datorn har {dataPoäng}");
-    Console.ReadLine();
     Console.WriteLine("Om du vill avsluta skriv 'bryt'");
 
     if (Console.ReadLine().ToLower() == "bryt")

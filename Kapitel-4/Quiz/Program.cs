@@ -7,7 +7,9 @@
         Ranking istället för "respons"  
 
     @todo done:
-        highScore --> kanske kan spara? 
+
+    @todo absolute done:
+        highScore --> till varje spelare? 
 
 */
 
@@ -23,11 +25,12 @@ Console.Clear();
 Console.WriteLine(@"
 Det här är ett quiz om Star Wars (frågor tagna från random quiz på nätet)
 Du får ett poäng för rätt svar och ett minus poäng för fel svar,
-Om du har skrivit mer en än bokstav när du svarar kommer programmet räkna förstabokstaven som svaret");
+Om du har skrivit mer en än bokstav när du svarar kommer programmet räkna förstabokstaven som svaret
+Som default är detta ett en spelar spel, för att ändra ange ditt namn som 'mode' ");
 Console.ReadLine();
 
-Console.WriteLine("Hur många spelar?");
-int spelare = int.Parse(Console.ReadLine());
+//Console.WriteLine("Hur många spelar?");
+//int spelare = int.Parse(Console.ReadLine());
 
 Console.WriteLine("Vad är ditt namn? ");
 string namn = Console.ReadLine();
@@ -67,6 +70,53 @@ if (namn == "admin")
 
             case 5:
                 Console.WriteLine("Din tid i admin mode är slut, vad är ditt namn Admin?");
+                namn = Console.ReadLine();
+                break;
+
+            default:
+                Console.WriteLine("ogilitigt svar");
+                break;
+        }
+
+    }
+}
+
+if (namn.ToLower() == "mode")
+{
+    while (val != 5)
+    {
+        Console.WriteLine("""
+        Välkommen, hur vill du ändra spelläget?
+        1) Ändra Svårhetsgrad 
+        2) Flerspelarläge
+        3) Resetta highscoren
+        4) Quiz Kategorier
+        5) Avsluta admin mode
+        """);
+        int.TryParse(Console.ReadLine(), out val);
+        switch (val)
+        {
+            case 1:
+                Console.WriteLine("Ändra svårhetsgraden någon gång i framtiden, gees det kommer ta lång tid");
+                break;
+
+            case 2:
+
+                Console.WriteLine("flerspelar läge, to be continued");
+                break;
+
+            case 3:
+                File.WriteAllText("highscore.txt","-1000");
+                Console.WriteLine("Highscoren har resettats ");
+                Console.WriteLine();
+                break;
+
+            case 4:
+                Console.WriteLine("Det kommer ta år och dar, varför har jag vallt att plåga mig själv");
+                break;
+
+            case 5:
+                Console.WriteLine("Din tid här är slut, vad är ditt namn?");
                 namn = Console.ReadLine();
                 break;
 
@@ -255,12 +305,24 @@ while (true)
     Console.WriteLine();
     Console.WriteLine($"Du fick {poäng} poäng av {total} möjliga ");
     respons(poäng);
+
+    highScore = int.Parse(File.ReadLines("highscore.txt").First());
+
+    if (highScore < poäng)
+    {
+        Console.WriteLine("Du har fått ett nytt highscore!!!   yay");
+        File.WriteAllText("highscore.txt", poäng.ToString());
+        highScore = int.Parse(File.ReadLines("highscore.txt").First());
+    }
+    Console.WriteLine($"Din highscore är {highScore}");
+
+    /* 
     if (highScore < poäng )
     {
         Console.WriteLine("Du har fått ett nytt highscore!!!   yay");
         highScore = poäng;
     }
-    Console.WriteLine($"Din highscore är {highScore}"); 
+ */
 
     Console.WriteLine($"{namn} vill du spela igen? (ja/nej)");
     if (Console.ReadLine().ToLower() == "nej") break;
