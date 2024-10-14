@@ -4,7 +4,8 @@
         grafiskt? 
             FlerSpelar Läge
         Svårhetsgrader
-        Ranking istället för "respons"  
+        Ranking istället för "respons" / förbättra responsen
+        lösenord till admin? 
 
     @todo done:
 
@@ -18,29 +19,35 @@ using System.Runtime.Intrinsics.Arm;
 using System.Runtime.Serialization;
 using System.Xml.Schema;
 
+//Säkerställer att man kan använda åäö i input. 
 Console.InputEncoding = System.Text.Encoding.Unicode;
 Console.OutputEncoding = System.Text.Encoding.Unicode;
 Console.Clear();
 
+//introducerar spelat
 Console.WriteLine(@"
 Det här är ett quiz om Star Wars (frågor tagna från random quiz på nätet)
 Du får ett poäng för rätt svar och ett minus poäng för fel svar,
 Om du har skrivit mer en än bokstav när du svarar kommer programmet räkna förstabokstaven som svaret
-Som default är detta ett en spelar spel, för att ändra ange ditt namn som 'mode' ");
+Som default är detta ett en spelar spel, för att ändra detta ange ditt namn som 'mode' ");
 Console.ReadLine();
 
-//Console.WriteLine("Hur många spelar?");
-//int spelare = int.Parse(Console.ReadLine());
 
 Console.WriteLine("Vad är ditt namn? ");
 string namn = Console.ReadLine();
+
+//variabler
+int poäng;
+int total;
+int highScore;
 int val = 0;
 
-
+// admin mode 
 if (namn == "admin")
 {
     while (val != 5)
     {
+        //presenterar alternativ
         Console.WriteLine("""
         Välkommen tillbaka admin; vad vill du göra?
         1) Läs upp frågorna  
@@ -50,6 +57,7 @@ if (namn == "admin")
         5) Avsluta admin mode
         """);
         int.TryParse(Console.ReadLine(), out val);
+
         switch (val)
         {
             case 1:
@@ -81,19 +89,22 @@ if (namn == "admin")
     }
 }
 
+// ändra spelläge
 if (namn.ToLower() == "mode")
 {
     while (val != 5)
     {
+        //presentera alternativ
         Console.WriteLine("""
         Välkommen, hur vill du ändra spelläget?
-        1) Ändra Svårhetsgrad 
-        2) Flerspelarläge
+        1) Ändra Svårhetsgrad   (tbc...)
+        2) Flerspelarläge       (tbc...)
         3) Resetta highscoren
-        4) Quiz Kategorier
+        4) Quiz Kategorier      (tbc...)
         5) Avsluta admin mode
         """);
         int.TryParse(Console.ReadLine(), out val);
+
         switch (val)
         {
             case 1:
@@ -103,10 +114,11 @@ if (namn.ToLower() == "mode")
             case 2:
 
                 Console.WriteLine("flerspelar läge, to be continued");
+
                 break;
 
             case 3:
-                File.WriteAllText("highscore.txt","-1000");
+                File.WriteAllText("highscore.txt", "-1000"); // sätter highscoren till -1000
                 Console.WriteLine("Highscoren har resettats ");
                 Console.WriteLine();
                 break;
@@ -130,11 +142,10 @@ if (namn.ToLower() == "mode")
 
 Console.WriteLine();
 
-int poäng;
-int total;
-int highScore = -100;
 
-// ger specifika responses beroende på hur många poäng du fick. Kan kägga till flera med flera else if
+//funktioner/metoder
+
+// ger specifika responses beroende på hur många poäng du fick.
 void respons(int slutpoäng)
 {
     if (slutpoäng == total) Console.WriteLine("Alla rätt grattis!");
@@ -161,12 +172,14 @@ void AdminNyFråga()
 
     while (true)
     {
+        // sätter den nya frågan
         string nyFråga = Console.ReadLine();
 
+        //kollar om frågan passar formatet {frågetext},{altA},{altB},{altC},{facit} (kollar att sista är a/b/c + finns 5 delar)
         string[] delar = nyFråga.Split(',');
         if (delar.Length == 5 && (delar[4] == "a" || delar[4] == "b" || delar[4] == "c"))
         {
-            File.AppendAllText("frågor.txt", nyFråga + Environment.NewLine);
+            File.AppendAllText("frågor.txt", nyFråga + Environment.NewLine); //skriver in den nya frågan
             Console.WriteLine("Frågan har lagts till");
             Console.WriteLine();
             break;
@@ -179,10 +192,12 @@ void AdminNyFråga()
 
 void AdminÄndraFråga()
 {
+    //läser in frågorna
     var frågor = new List<string>(File.ReadLines("frågor.txt"));
     Console.WriteLine("Välj en rad att ändra på. (ange radnummret)");
     Console.WriteLine();
 
+    // skriver ut varje fråga en i taget
     for (int i = 0; i < frågor.Count; i++)
     {
         Console.WriteLine($"{i + 1}: {frågor[i]}");
@@ -190,18 +205,21 @@ void AdminÄndraFråga()
 
     int valdRad;
     int.TryParse(Console.ReadLine(), out valdRad);
+    // kollar att raden finns 
     if (valdRad > 0 && valdRad < frågor.Count + 1)
     {
         while (true)
         {
-
             Console.WriteLine("skriv in den nya frågan");
             string ändradFråga = Console.ReadLine();
+            // sätter den nya raden till den nya raden
             frågor[valdRad - 1] = ändradFråga;
 
+            // kollar att formatet stämmer
             string[] delar = ändradFråga.Split(',');
             if (delar.Length == 5 && (delar[4] == "a" || delar[4] == "b" || delar[4] == "c"))
             {
+                // skriver in de nya frågorna. 
                 File.WriteAllLines("frågor.txt", frågor);
                 Console.WriteLine("Frågan har ändrats");
                 Console.WriteLine();
@@ -215,22 +233,24 @@ void AdminÄndraFråga()
 
 void AdminRaderaFråga()
 {
+    // läser in frågorna
     var frågor = new List<string>(File.ReadLines("frågor.txt"));
     Console.WriteLine("Välj en rad att ändra på. (ange radnummret)");
     Console.WriteLine();
 
+    // skriver ut frågorna 
     for (int i = 0; i < frågor.Count; i++)
     {
         Console.WriteLine($"{i + 1}: {frågor[i]}");
     }
 
     int.TryParse(Console.ReadLine(), out int valdRad);
+    // kollar att valda raden finns 
     if (valdRad > 0 && valdRad < frågor.Count + 1)
     {
+        // ta bort raden
         frågor.RemoveAt(valdRad - 1);
-
         File.WriteAllLines("frågor.txt", frågor);
-
         Console.WriteLine("Frågan har tagits bort");
     }
     else Console.WriteLine("Ogiltigt svar");
@@ -259,6 +279,12 @@ foreach (var frågeRad in File.ReadLines("frågor.txt"))
 }
 
 
+
+
+
+
+
+//programm loop 
 while (true)
 {
     //resetar räknarna
@@ -274,22 +300,7 @@ while (true)
         char svar = 'e'; // en random bokstav som inte är abc 
         Console.Write("Ditt svar: ");
 
-
-        ///while(svar != 'a' && svar != 'b' && svar != 'c') char.TryParse(Console.ReadLine().Substring(0, 1).ToLower(), out svar);        
-        //while(svar != 'a' && svar != 'b' && svar != 'c')svar = char.Parse(Console.ReadLine().Substring(0, 1).ToLower()); // fungerar gillar dock andra bättre.
-
-        /* do
-         {
-             if (string.IsNullOrWhiteSpace(Console.ReadLine())) svar = 'e';
-             else svar = char.Parse(Console.ReadLine().Substring(0, 1).ToLower()); //läser in och registrerar svaret samt klipper bort alla bokstäver förutom dem första 
-         }
-         while (svar != 'a' && svar != 'b' && svar != 'c'); // tills det är anitngen abc  // fungerar halft kan hantera mer än en karaaktär men inskrvivningen blir funky. 
-         while (svar != 'a' && svar != 'b' && svar != 'c'); // tills det är anitngen abc  // fungerar halft kan hantera mer än en karaaktär men inskrvivningen blir funky. 
-         {
-             if (string.IsNullOrWhiteSpace(Console.ReadLine())) svar = 'e';
-             else svar = char.Parse(Console.ReadLine().Substring(0, 1).ToLower()); //läser in och registrerar svaret samt klipper bort alla bokstäver förutom dem första 
-         }
-        */
+        // urklippta försök
         do svar = char.Parse(Console.ReadLine().Substring(0, 1).ToLower()); //läser in och registrerar svaret samt klipper bort alla bokstäver förutom dem första 
         while (svar != 'a' && svar != 'b' && svar != 'c'); // tills det är anitngen abc  // fungerar halft kan hantera mer än en karaaktär men inskrvivningen blir funky. 
 
@@ -306,23 +317,18 @@ while (true)
     Console.WriteLine($"Du fick {poäng} poäng av {total} möjliga ");
     respons(poäng);
 
+    // highscore 
     highScore = int.Parse(File.ReadLines("highscore.txt").First());
 
+    // kollar om highscoren är mindre en nuvarande poäng
     if (highScore < poäng)
     {
+        // skriv in det nya highscoren i filen
         Console.WriteLine("Du har fått ett nytt highscore!!!   yay");
         File.WriteAllText("highscore.txt", poäng.ToString());
         highScore = int.Parse(File.ReadLines("highscore.txt").First());
     }
     Console.WriteLine($"Din highscore är {highScore}");
-
-    /* 
-    if (highScore < poäng )
-    {
-        Console.WriteLine("Du har fått ett nytt highscore!!!   yay");
-        highScore = poäng;
-    }
- */
 
     Console.WriteLine($"{namn} vill du spela igen? (ja/nej)");
     if (Console.ReadLine().ToLower() == "nej") break;

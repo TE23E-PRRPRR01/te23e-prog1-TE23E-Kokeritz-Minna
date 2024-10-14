@@ -7,6 +7,7 @@ Med bruttolön avses din årslön före skatt.");
 Console.Write("Vad heter du? ");
 string namn = Console.ReadLine();
 int skattesatsen = 0;
+
 //programmloop
 while (true)
 {
