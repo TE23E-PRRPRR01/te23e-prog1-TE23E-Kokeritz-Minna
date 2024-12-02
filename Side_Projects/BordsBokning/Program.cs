@@ -19,7 +19,7 @@ string[] bordsInformation = [];
 
 string filnamn = "centralbord.csv";
 
-string tomtBordBeskrivning = "0,Inga gäster";
+string tomtBordBeskrivning = "0,Inga gäster,0";
 
 int antalBord = 8;
 
@@ -34,6 +34,7 @@ void läsBordsInformation()
 {
     int antalGäster;
     string bordNamn;
+    int nota;
 
     bordsInformation = File.ReadAllLines(filnamn);
     for (int i = 0; i < bordsInformation.Count(); i++)
@@ -51,7 +52,8 @@ void läsBordsInformation()
             string[] deladBord = bordsInformation[i].Split(',');
             bordNamn = deladBord[1];
             antalGäster = int.Parse(deladBord[0]);
-            Console.Write($"BordsNamn: {antalGäster}, Antal Gäster: {bordNamn}");
+            nota = int.Parse(deladBord[2]);
+            Console.Write($"BordsNamn: {bordNamn}, Antal Gäster: {antalGäster}, nota: {nota} kr");
 
             summaGäster = summaGäster + antalGäster;
         }
@@ -72,28 +74,27 @@ int heltalTryparse()
 }
 
 
-// Kontrollera att "centralbord.csv" finns annrs skapas den 
-//TBC...
+
+
+
 if (File.Exists(filnamn) == false)
 {
-    File.Create(filnamn);
+    for (int i = 0; i < antalBord; i++)
+    {
+            File.AppendAllText(filnamn, tomtBordBeskrivning + Environment.NewLine);
+    }
 }
 
-
-
-
-
-
-
 // programm loop
-while (menyVal != 4)
+while (menyVal != 5)
 {
     Console.WriteLine("""
             ---------------------------------------------
                 1. Visa alla bord
                 2. Lägg till / ändra bordsinforamtion
                 3. Markera bord som ledigt
-                4. Avsluta 
+                4. Ange nota
+                5. Avsluta 
             ---------------------------------------------
             """);
     menyVal = heltalTryparse();
@@ -124,7 +125,7 @@ while (menyVal != 4)
             Console.Write("Ange antal gäster: ");
             int antalGäster = heltalTryparse();
 
-            bordsInformation[bordsNummer - 1] = $"{antalGäster},{bordsNamn}";
+            bordsInformation[bordsNummer - 1] = $"{antalGäster},{bordsNamn},{0}";
             File.WriteAllLines(filnamn, bordsInformation);
 
             Console.ReadLine();
@@ -137,14 +138,33 @@ while (menyVal != 4)
             Console.Write("Ange bordsnummret: ");
             bordsNummer = heltalTryparse();
 
-            bordsInformation[bordsNummer-1] = tomtBordBeskrivning;
+            bordsInformation[bordsNummer - 1] = tomtBordBeskrivning;
             File.WriteAllLines(filnamn, bordsInformation);
 
             Console.ReadLine();
             break;
 
-
         case 4:
+            Console.WriteLine();
+            läsBordsInformation();
+
+            Console.Write("Ange bordsnummret: ");
+            bordsNummer = heltalTryparse();
+
+            Console.Write("Ange nota: ");
+            int nota = heltalTryparse();
+
+            string[] deladBord = bordsInformation[bordsNummer-1].Split(',');
+            string bordNamn = deladBord[1];
+            antalGäster = int.Parse(deladBord[0]);
+            deladBord[2] = nota.ToString();
+
+            bordsInformation[bordsNummer-1] = $"{antalGäster},{bordNamn},{nota}";
+            File.WriteAllLines(filnamn, bordsInformation);
+
+        break;
+
+        case 5:
             Console.WriteLine();
             Console.WriteLine("Du loggar nu ut. Hej då :)");
             Console.ReadLine();
@@ -157,3 +177,34 @@ while (menyVal != 4)
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+/*
+    List<String> tempList = [];
+    for (int i = 0; i < antalBord; i++)
+    {
+        tempList.Add(tomtBordBeskrivning);
+        Console.WriteLine(tempList);
+    }
+
+    bordsInformation = tempList.ToArray();
+    File.WriteAllLines(filnamn, bordsInformation);
+*/
+
+    /*   Array.Resize( ref bordsInformation, antalBord);
+      foreach (var item in bordsInformation) Console.WriteLine(item);
+
+     for (int i = 0; i < bordsInformation.Count(); i++)
+      {
+          bordsInformation[i] = tomtBordBeskrivning;
+      }
+      File.WriteAllLines(filnamn, bordsInformation); */
