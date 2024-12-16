@@ -26,57 +26,9 @@ int antalBord = 8;
 int menyVal = 0;
 int summaGäster = 0;
 
-/*****************************
-          Metoder.
-******************************/
-
-void läsBordsInformation()
-{
-    int antalGäster;
-    string bordNamn;
-    int nota;
-
-    bordsInformation = File.ReadAllLines(filnamn);
-    for (int i = 0; i < bordsInformation.Count(); i++)
-    {
-
-        Console.Write($"Bord {i + 1} - ");
-
-        if (bordsInformation[i] == tomtBordBeskrivning)
-        {
-            Console.Write(bordsInformation[i].Trim('0', ','));
-        }
-
-        else
-        {
-            string[] deladBord = bordsInformation[i].Split(',');
-            bordNamn = deladBord[1];
-            antalGäster = int.Parse(deladBord[0]);
-            nota = int.Parse(deladBord[2]);
-            Console.Write($"BordsNamn: {bordNamn}, Antal Gäster: {antalGäster}, nota: {nota} kr");
-
-            summaGäster = summaGäster + antalGäster;
-        }
-        Console.WriteLine();
-    }
-}
-
-int heltalTryparse()
-{
-    int heltal;
-    while (true)
-    {
-        bool lyckades = int.TryParse(Console.ReadLine(), out heltal);
-        if (lyckades) break;
-        else Console.WriteLine("Fel: inte ett heltal");
-    }
-    return heltal;
-}
 
 
-
-
-
+// kontrollerar om centralbord.csv finns annars skapa den
 if (File.Exists(filnamn) == false)
 {
     for (int i = 0; i < antalBord; i++)
@@ -88,6 +40,7 @@ if (File.Exists(filnamn) == false)
 // programm loop
 while (menyVal != 5)
 {
+    
     Console.WriteLine("""
             ---------------------------------------------
                 1. Visa alla bord
@@ -98,7 +51,6 @@ while (menyVal != 5)
             ---------------------------------------------
             """);
     menyVal = heltalTryparse();
-
 
     switch (menyVal)
     {
@@ -177,6 +129,55 @@ while (menyVal != 5)
     }
 
 }
+
+
+/*****************************
+          Metoder.
+******************************/
+
+void läsBordsInformation()
+{
+    int antalGäster;
+    string bordNamn;
+    int nota;
+
+    bordsInformation = File.ReadAllLines(filnamn);
+    for (int i = 0; i < bordsInformation.Count(); i++)
+    {
+
+        Console.Write($"Bord {i + 1} - ");
+
+        if (bordsInformation[i] == tomtBordBeskrivning)
+        {
+            Console.Write(bordsInformation[i].Trim('0', ','));
+        }
+
+        else
+        {
+            string[] deladBord = bordsInformation[i].Split(',');
+            bordNamn = deladBord[1];
+            antalGäster = int.Parse(deladBord[0]);
+            nota = int.Parse(deladBord[2]);
+            Console.Write($"BordsNamn: {bordNamn}, Antal Gäster: {antalGäster}, nota: {nota} kr");
+
+            summaGäster = summaGäster + antalGäster;
+        }
+        Console.WriteLine();
+    }
+}
+
+int heltalTryparse()
+{
+    int heltal;
+    while (true)
+    {
+        bool lyckades = int.TryParse(Console.ReadLine(), out heltal);
+        if (lyckades) break;
+        else Console.WriteLine("Fel: inte ett heltal");
+    }
+    return heltal;
+}
+
 
 
 
