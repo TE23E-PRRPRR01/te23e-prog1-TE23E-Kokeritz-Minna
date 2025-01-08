@@ -5,7 +5,6 @@
 **************************** */
 
 int menyval = 0;
-int avsluta = 5;
 
 List<string> ActionLista = [];
 List<string> ÄdevntyrLista = [];
@@ -14,14 +13,15 @@ List<string> ÄdevntyrLista = [];
 /* *************************
             Main
 **************************** */
-while (menyval != avsluta)
+while (menyval != 0)
 {
     Console.WriteLine($"""
         1. Visa alla action spel 
         2. Registrera ett action spel
         3. Visa alla Adventyrs spel
         4. Registrera ett ädventyrspel 
-        {avsluta}. Avlsuta programmet
+
+        0. Avlsuta programmet
         """);
 
     menyval = HeltalParse();
@@ -48,7 +48,7 @@ while (menyval != avsluta)
             Console.ReadLine();
             break;
 
-        case 5:
+        case 0:
             Console.WriteLine("Du loggar nu ut");
             break;
 
