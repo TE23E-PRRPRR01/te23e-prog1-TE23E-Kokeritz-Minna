@@ -98,7 +98,7 @@ static void VisaMeny()
             2. Läs alla Ordspråk
             3. Slumpa fram ett Ordspråk 
             4. Sök efter Ordspråk
-            5. Raddera ett Ordspråk 
+            5. Radera ett Ordspråk 
             0. Avlsuta
             --------------------
             """);
